@@ -1,0 +1,95 @@
+<html>
+	<head>
+		<script src="../libs/browser.js"  ></script>
+		<script src="../libs/react.js"  ></script>
+		<script src="../libs/react-dom.js"  ></script>
+	  <style>
+            .typeahead-container{
+                display:inline-block;
+                width:100%;
+            }
+
+            .typeahead-container > input[type="text"]{
+                display:inline-block;
+                width:100%;
+                border:1px solid #cacaca; 
+                border-radius: 10px;
+                height:25px;
+            }
+
+            .typeahead-container  li{
+                list-style:none;
+                border:1px solid blue;
+                padding:3px;
+            }
+
+            .typeahead-container  ul{
+                padding:0px;
+            }
+
+            .typeahead-container  li:hover{
+                background-color: #cacaca;
+            }
+
+
+	  </style>
+	</head>
+	<body>
+		<div  id="main" ></div>
+		
+        <script type="text/babel"    >
+
+            class ListElement extends React.Component {
+				constructor(props){
+					super(props);
+					this.state={};
+				}
+                render() {
+							return (<li key={this.props.id} >{this.props.value}</li>);
+						}
+			}
+		   
+            class Typeahead extends React.Component {
+				constructor(props){
+					super(props);
+					this.state={
+                        selectedValue:"",
+                        searchList:[{cityName:"Bangalore"},{ cityName:"Chennai"},{cityName:"Hyderabad"},{ cityName:"Pune"}],
+                        filteredListDom:[]
+
+                    };
+				}
+                updateSelValue(evt){
+                        this.setState({selectedValue:evt.target.value});
+                        if(evt.target.value==""){
+                         this.setState({filteredListDom: [] });
+                        }else{
+                               this.filterList(); 
+                        }
+                }
+                filterList(){
+                       var filteredListDom=this.state.searchList.filter(function(arrayObj){
+                                if(arrayObj.cityName.indexOf(this.state.selectedValue) != -1 ){
+                                     return true;
+                                }else{
+                                    return false;
+                                }
+                       }.bind(this)).map(function(arrayObj,index){
+                            return <ListElement value={arrayObj.cityName}  key={index} />
+                       }.bind(this))  ;
+                       this.setState({filteredListDom: filteredListDom });
+                }
+                render() {
+							return (<div  className="typeahead-container" >
+                                        <input type="text"  value={this.state.selectedValue}  onChange={this.updateSelValue.bind(this)}  />
+                                        <ul>
+                                            {this.state.filteredListDom}
+                                        </ul>
+                                      
+                                    </div>);
+						}
+			}	
+            ReactDOM.render(<Typeahead/>,document.getElementById("main"));
+       </script>
+	</body>
+</html>

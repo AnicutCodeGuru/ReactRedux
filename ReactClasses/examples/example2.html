@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<script src="../libs/browser.js"  ></script>
+		<script src="../libs/react.js"  ></script>
+		<script src="../libs/react-dom.js"  ></script>
+	  <style>
+	     .button-start{
+			 margin-right:10px;
+		 }	 
+	     .button-stop{
+			 margin-left:10px;
+		 }	 
+	  </style>
+	</head>
+	<body>
+		<div  id="container" ></div>
+		<div  id="container2" ></div>
+		<div  id="container3" ></div>
+		
+        <script type="text/babel"    >
+		   
+            class Clock extends React.Component {
+				constructor(props){
+					super(props);
+					this.state={	
+									time: new Date().toLocaleTimeString(),
+									clockState:true,
+									clockTimer:null
+							   };
+				}
+				componentDidMount(){
+						var clockTimer = setInterval(function() {
+											this.tick();
+										}.bind(this), 1000);
+						this.setState({clockTimer:clockTimer})				
+				}
+				tick(){
+					this.setState({time:new Date().toLocaleTimeString()})
+				}
+				toggleClock(){
+					if(this.state.clockState){
+						clearInterval(this.state.clockTimer);
+						this.setState({clockState: !this.state.clockState });
+					}else{
+						var clockTimer = setInterval(function() {
+											this.tick();
+										}.bind(this), 1000);
+						this.setState({clockTimer:clockTimer})	
+						this.setState({clockState: !this.state.clockState });	
+					}
+				}
+				render() {
+							return (
+										<div>
+											<input type="button" className="button-start"  value="Start" disabled={this.state.clockState}  onClick={this.toggleClock.bind(this)}  />
+												{this.state.time}
+											<input type="button" className="button-stop"  value="Stop" disabled={!this.state.clockState}  onClick={this.toggleClock.bind(this)} /> 
+										</div>
+									);
+						}
+			}	
+            ReactDOM.render(<Clock/>,document.getElementById("container"));
+            ReactDOM.render(<Clock/>,document.getElementById("container2"));
+            ReactDOM.render(<Clock/>,document.getElementById("container3"));
+		</script>
+	</body>
+</html>

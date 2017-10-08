@@ -1,0 +1,72 @@
+<html>
+  <head>
+	<title>Sample Component</title>
+  </head>
+  <body   >
+	 <div id="main" ></div>
+	 <div id="container1" ></div>
+     
+	 <script src="libs/browser.js"  ></script>
+	 
+	 <script src="libs/react.js"  ></script>
+	 <script src="libs/react-dom.js"  ></script>
+	 
+	 <script type="text/babel">
+
+
+	      function Welcome(props){
+		     return(
+			   <div>
+			    <h4>Welcome to React JS, Mr. {props.name}</h4>
+			   </div>
+			 )
+		  }
+		  
+		  function Field(props){
+		     return(
+			   <div><input type={props.type}  /></div>
+			 )
+		  }
+	 
+		  function loadView(){
+		      ReactDOM.render(<div>
+				<Welcome name="Jagadeesh" />
+			 	
+				 
+				 <Field  type="checkbox" />
+
+
+			  </div>,document.getElementById('main'));
+		  }
+		  function onLoad(){
+				loadView();
+		  }
+		  
+		  
+		  	var Name = React.createClass({
+			  getInitialState: function(){
+				 return {name: this.props.value}
+			  },
+			  updateName: function(e){
+			    this.state.name=e.target.value;
+				this.setState({
+				  name: e.target.value
+				});
+			  },
+			  render: function(){
+				return (
+				  <div >
+					<input  type="text" onChange={this.updateName} value={this.state.name}  />
+					<h1>Hello {this.state.name}</h1>
+				  </div>
+				);
+			  }  
+			});
+			
+			ReactDOM.render(<Name  value="Jagadeesh" />, document.getElementById("container1"));
+		  onLoad();
+	  </script>
+  </body>
+</html>
+
+

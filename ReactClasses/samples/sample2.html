@@ -1,0 +1,30 @@
+<html>
+    <head>
+      <title>Sample Component</title>
+          <script src="../libs/browser.js"  ></script>
+          <script src="../libs/react.js"  ></script>
+         <script src="../libs/react-dom.js"  ></script>
+    </head>
+    <body   >
+       <div id="container1" ></div>
+       <div id="container2" ></div>
+              <script type="text/babel">
+                class Counter extends React.Component {
+                    constructor(props) {
+                            super(props);
+                            this.state={count:0};  
+                        }
+                        incrementCounter (){
+                            this.setState({count:this.state.count+this.props.IncrementBy});
+                        }
+                        render() {
+                                return (<div>
+                                           <input type="button" onClick={this.incrementCounter.bind(this)}  value={"Increment = "+ this.state.count }   /> 
+                                        </div>);
+                        }
+                    }
+                    ReactDOM.render(<Counter IncrementBy={1} />,document.getElementById("container1"));
+                    ReactDOM.render(<Counter IncrementBy={4}  />,document.getElementById("container2"));
+              </script>
+    </body>
+  </html>

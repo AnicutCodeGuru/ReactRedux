@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script src="../libs/browser.js"  ></script>
+		<script src="../libs/react.js"  ></script>
+		<script src="../libs/react-dom.js"  ></script>
+	  
+	</head>
+	<body>
+		<div  id="container" ></div>
+		<div  id="container2" ></div>
+		<div  id="container3" ></div>
+		
+        <script type="text/babel"    >
+		   
+            class Welcome extends React.Component {
+				constructor(props){
+					super(props)
+				}
+				componentWillMount(){
+					console.log("1");
+				}
+				componentDidMount(){
+						console.log("2");
+				}
+				render() {
+							return (
+										<div>Welcome to React JS Mr. {this.props.name} {this.props.age}  </div>
+									);
+						}
+			}	
+
+					
+            
+            ReactDOM.render(<Welcome  name="Raj"   age="24"  />,document.getElementById("container"));
+            ReactDOM.render(<Welcome  name="Vishal"  age="25"   />,document.getElementById("container2"));
+            ReactDOM.render(<Welcome  name="Ramesh" age="30"    />,document.getElementById("container3"));
+		</script>
+	</body>
+</html>

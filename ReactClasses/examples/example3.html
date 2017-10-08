@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<script src="../libs/browser.js"  ></script>
+		<script src="../libs/react.js"  ></script>
+		<script src="../libs/react-dom.js"  ></script>
+	  <style>
+	     .container{
+			 border:4px dotted midnightblue;
+             height: 250px;
+             width:50%;
+         }
+
+         .container-previous{
+             display:inline-block;
+             width:20%;
+         }	 
+
+         .container-next{
+             display:inline-block;
+             width:20%;
+         }	 
+         .container-img{
+             display:inline-block;
+             width:60%;
+         }	
+
+         .btn{
+             width:99%;
+             height:100%;
+              float:left;
+         } 
+
+         .carousel-img{
+             width:100%;
+             height:100%;
+            
+         }
+	      
+	  </style>
+	</head>
+	<body>
+		<div  id="main" ></div>
+		
+        <script type="text/babel"    >
+		   
+            class Carousel extends React.Component {
+				constructor(props){
+					super(props);
+					this.state={
+                        imgSrc:"",
+                        currentIndex:0
+                    };
+				}
+                previous(){
+                   var imgIndex = this.state.currentIndex;
+                    imgIndex--;
+
+                    if(imgIndex < 0){
+                        imgIndex=this.props.images.length-1;
+                    }
+                     this.setState({
+                                     imgSrc:this.props.images[imgIndex],
+                                     currentIndex:imgIndex
+                                   });
+                }
+                next(){
+                    var imgIndex = this.state.currentIndex;
+                    imgIndex++;
+
+                    if(imgIndex > this.props.images.length-1){
+                        imgIndex=0;
+                    }
+                     this.setState({
+                                     imgSrc:this.props.images[imgIndex],
+                                     currentIndex:imgIndex
+                                   });
+
+
+                }
+				componentDidMount(){
+                     if(this.props.images.length > 0){
+                        this.setState({imgSrc:this.props.images[0]});
+                     }
+                }
+				
+				render() {
+							return (
+									  <div className="container"  >
+                                        <div className="container-previous" >
+                                            <input type="button"  value="<< Previous" className="btn"  onClick={this.previous.bind(this)} />
+                                        </div>
+                                        <div className="container-img" >
+                                            <img className="carousel-img" src={"images/"+this.state.imgSrc} ></img>
+                                        </div>
+                                        <div className="container-next" >
+                                            <input type="button"  value="Next >>"  className="btn"   onClick={this.next.bind(this)}  />
+                                        </div>
+                                      </div>	
+									);
+						}
+			}	
+            ReactDOM.render(<Carousel  images={['bird1.jpeg', 'bird2.jpeg', 'bird3.jpg']}   />,document.getElementById("main"));
+       </script>
+	</body>
+</html>

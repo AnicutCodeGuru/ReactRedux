@@ -1,0 +1,36 @@
+<html>
+  <head>
+	<title>Sample Component</title>
+		<script src="../libs/browser.js"  ></script>
+		<script src="../libs/react.js"  ></script>
+	 	<script src="../libs/react-dom.js"  ></script>
+  </head>
+  <body   >
+	 <div id="container1" ></div>
+			<script type="text/babel">
+						class HelloWorld extends React.Component {
+							 constructor(props) {
+								    super(props);
+										this.state={firstName:this.props.name.split(" ")[0],
+															  lastName :this.props.name.split(" ")[1] };  
+								}
+								componentWillMount () {
+								  	console.log("Inside componentWillMount  -> 1");
+								}
+								componentDidMount() {
+										console.log("Inside componentDidMount  -> 2");
+								}
+								render() {
+										return (
+													<div>
+													   <p>	Hello World {this.props.name}</p>
+													   <p>	Hello World {this.state.firstName}</p>
+													   <p>	Hello World {this.state.lastName}</p>
+													</div>
+										);
+								}
+							}
+				  ReactDOM.render(<HelloWorld name="Jagadeesh V" />,document.getElementById("container1"));
+			</script>
+  </body>
+</html>
